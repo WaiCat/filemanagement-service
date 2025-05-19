@@ -2,6 +2,9 @@ name: AWS Connnetion Test
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   test-aws-connection:
@@ -17,7 +20,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew test
 
       - name: Build Docker image
         run: docker build -t file-management-service:latest .
