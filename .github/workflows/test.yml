@@ -63,13 +63,13 @@ jobs:
         id: render-task-def
         uses: aws-action/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: task-definitino.json
+          task-definition: task-definition.json
           container-name: app
           image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
-          environment-variables: "SPRING_PROFILES_ACTIVE=dev;HELLO=world"
+          environment-variables: "SPRING_PROFILES_ACTIVE=dev, HELLO=world"
 
       - name: Deploy to Amazon ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.render-task-def.outputs.task-definition }}
           cluster: file-management-service
